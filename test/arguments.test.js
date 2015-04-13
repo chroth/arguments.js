@@ -1,5 +1,5 @@
 var should = require("should");
-var Arguments = require("../lib/index");
+var Arguments = require("../index");
 
 describe("Arguments", function() {
   var f;
