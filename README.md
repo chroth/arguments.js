@@ -10,7 +10,7 @@ Ported from the Python module [Arguments](https://github.com/oskarnyqvist/argume
 ```javascript
 var Arguments = require("argumentsjs");
 
-f = Arguments();
+f = new Arguments();
 //Required arguments, first argument will be stored as "candy"
 f.required("candy", { help: "Candy name" });
 //optional value, set a default, can be changed by adding: --num=30, or -n=30
