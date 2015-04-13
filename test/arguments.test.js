@@ -61,8 +61,8 @@ describe("Arguments", function() {
     resp = f.parse(["node", "/path/to/script", "-n=9"]);
 
     resp.errors.length.should.be.exactly(2);
-    resp.errors[0].toString().should.be.eql("TypeError: [num] Validation failed");
-    resp.errors[1].toString().should.be.eql("TypeError: Number of required arguments mismatch, missing: candy");
+    resp.errors[0].toString().should.be.eql("Error: [num] Validation failed");
+    resp.errors[1].toString().should.be.eql("Error: Number of required arguments mismatch, missing: candy");
     (resp.results.candy === undefined).should.be.true;
     resp.results.num.should.eql("9").and.be.a.String;
     resp.results.reverse.should.be.false;
@@ -75,27 +75,6 @@ describe("Arguments", function() {
     var help = f.help_usage(["node", "/path/to/script", "-h"]);
 
     help.should.be.eql("Usage: node /path/to/script CANDY\n\nRequired arguments:\n CANDY     Candy name\n\nOptional arguments:\n -n  --num=25 How many pieces?\n\nSwitches:\n -r  --reverse Reverse ordering\n -u  --unwrap unwrapcandy\n")
-
-    done();
-  });
-
-  it("should accept args when is binary", function(done) {
-    resp = f.parse(["scriptname", "bubblegum", "--num=20", "--reverse", "--unwrap"]);
-
-    // Assertions
-    resp.errors.length.should.be.exactly(0);
-    resp.results.candy.should.eql("bubblegum").and.be.a.String;
-    resp.results.num.should.eql("20").and.be.a.String;
-    resp.results.reverse.should.be.true;
-    resp.results.unwrap.should.be.true;
-
-    done();
-  });
-
-  it("should show help for binary", function(done) {
-    var help = f.help_usage(["scriptname", "--help"]);
-
-    help.should.be.eql("Usage: scriptname CANDY\n\nRequired arguments:\n CANDY     Candy name\n\nOptional arguments:\n -n  --num=25 How many pieces?\n\nSwitches:\n -r  --reverse Reverse ordering\n -u  --unwrap unwrapcandy\n")
 
     done();
   });
