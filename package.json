@@ -1,7 +1,7 @@
 {
-  "name": "arguments.js",
+  "name": "argumentsjs",
   "author" : "Christofer Roth <christofer@dorian.se> (http://www.dorian.se)",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "CLI arguments parser for node",
   "homepage": "https://github.com/chroth/arguments.js",
   "keywords": [
