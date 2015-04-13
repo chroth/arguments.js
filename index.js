@@ -107,7 +107,7 @@ var Arguments = function Arguments() {
         var help = opts.help, abbr = opts.abbr;
         _set_default_value(name, false);
 
-        self.names["switches"].push(name);
+        self.names.switches.push(name);
         self.text["switch"][name] = help || "N/A";
         if (abbr)
             _set_abbr(name, abbr);
@@ -117,7 +117,7 @@ var Arguments = function Arguments() {
         var help = opts.help, abbr = opts.abbr;
         _set_default_value(name, value);
 
-        self.text["option"][name] = help || "N/A";
+        self.text.option[name] = help || "N/A";
         if (abbr)
             self.abbr[abbr] = name;
     }
@@ -126,7 +126,7 @@ var Arguments = function Arguments() {
         var help = opts.help;
         self.order.push(name);
         _set_default_value(name, undefined);
-        self.text["required"][name] = help;
+        self.text.required[name] = help;
     }
 
     function process(name, fun) {
@@ -150,7 +150,7 @@ var Arguments = function Arguments() {
     }
 
     function _is_switch(name) {
-        return _.indexOf(self.names["switches"], name) >= 0;
+        return _.indexOf(self.names.switches, name) >= 0;
     }
 
     function _is_abbr(name) {
@@ -234,10 +234,9 @@ var Arguments = function Arguments() {
             throw new TypeError("'args' needs to be an array");
         }
         var usage_options = "";
-        var options_count = self.names.length
-        if (options_count > 0) {
+        var options_count = self.names.length;
+        if (options_count > 0)
             usage_options = " [OPTIONS] ";
-        }
 
         var mandatory = " ".join(self.order).toUpperCase();
 
@@ -249,18 +248,18 @@ var Arguments = function Arguments() {
         var r = "";
         r += "Usage: " + _get_script_args(args).join(" ") + " " + usage_options + mandatory;
         r += "\n\n";
-        if (self.text["required"].keysLength() > 0) {
+        if (self.text.required.keysLength() > 0) {
             r += "Required arguments:\n";
-            _.each(self.text["required"], function(v, k) {
+            _.each(self.text.required, function(v, k) {
                 r += " " + k.ljust(len_just).toUpperCase() + " ".repeat(6) + v;
                 r += "\n";
             });
             r += "\n";
         }
 
-        if (self.text["option"].keysLength() > 0) {
-            r += "Optional arguments:\n"
-            _.each(self.text["option"], function(v, k) {
+        if (self.text.option.keysLength() > 0) {
+            r += "Optional arguments:\n";
+            _.each(self.text.option, function(v, k) {
                 var a = "";
                 if (abbr_reverse.hasOwnProperty(k))
                     a = "-" + abbr_reverse[k];
