@@ -1,6 +1,8 @@
 # ARGUMENTS.JS
 
-CLI arguments parser for node
+CLI arguments parser for node.
+
+Ported from the Python module [Arguments](https://github.com/oskarnyqvist/arguments "Arguments python")
 
 
 ## Usage
