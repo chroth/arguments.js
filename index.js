@@ -23,6 +23,9 @@ String.prototype.rjust = function(len) {
 var Arguments = function Arguments() {
     var self = this;
 
+    if (!(self instanceof Arguments))
+        return new Arguments();
+
     self.order = [];
     self.data = {};
     self.text = {

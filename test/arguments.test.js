@@ -3,6 +3,7 @@ var Arguments = require("../index");
 
 describe("Arguments", function() {
   var f;
+
   before(function() {
     f = Arguments();
     //Required arguments, first argument will be stored as "candy"
@@ -75,6 +76,49 @@ describe("Arguments", function() {
     var help = f.help_usage(["node", "/path/to/script", "-h"]);
 
     help.should.be.eql("Usage: node /path/to/script CANDY\n\nRequired arguments:\n CANDY     Candy name\n\nOptional arguments:\n -n  --num=25 How many pieces?\n\nSwitches:\n -r  --reverse Reverse ordering\n -u  --unwrap unwrapcandy\n")
+
+    done();
+  });
+
+  it("should instantiate if has not been instantiated", function(done) {
+    var ad = Arguments();
+
+    resp = f.parse(["node", "/path/to/script", "bubblegum", "--num=20", "--reverse", "--unwrap"]);
+    resp.errors.length.should.be.exactly(0);
+    resp.results.candy.should.eql("bubblegum").and.be.a.String;
+
+    done();
+  });
+
+  it("should run with only required", function(done) {
+    var af = new Arguments();
+
+    af.required("cookie", { help: "Candy name" });
+
+    resp = af.parse(["node", "/path/to/script", "chocolate"]);
+    resp.results.cookie.should.eql("chocolate").and.be.a.String;
+
+    done();
+  });
+
+  it("should run with only option", function(done) {
+    var af = new Arguments();
+
+    af.option("num", "25", { help: "How many pieces?", abbr: "n" });
+
+    resp = af.parse(["node", "/path/to/script", "--num=20"]);
+    resp.results.num.should.eql("20").and.be.a.String;
+
+    done();
+  });
+
+  it("should run with only switches", function(done) {
+    var af = new Arguments();
+
+    af.switch("reverse",  { help: "Reverse ordering", abbr: "r" });
+
+    resp = af.parse(["node", "/path/to/script", "-r"]);
+    resp.results.reverse.should.be.true;
 
     done();
   });
