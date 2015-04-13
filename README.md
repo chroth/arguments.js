@@ -7,7 +7,7 @@ Ported from the Python module [Arguments](https://github.com/oskarnyqvist/argume
 
 ## Usage
 
-    var Arguments = require("../lib/index");
+    var Arguments = require("argumentsjs");
 
     f = Arguments();
     //Required arguments, first argument will be stored as "candy"
