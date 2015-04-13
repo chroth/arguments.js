@@ -29,10 +29,14 @@ CLI arguments parser for node
 
 *node test/demo.js bubblegum*
 
-    { results: { candy: 'bubblegum', num: '25', reverse: false, unwrap: false },
-  errors: [] }
+    {
+      results: { candy: 'bubblegum', num: '25', reverse: false, unwrap: false },
+      errors: []
+    }
 
 *node test/demo.js bubblegum -r -n=123*
 
-{ results: { candy: 'bubblegum', num: '123', reverse: true, unwrap: false },
-  errors: [] }
+    {
+      results: { candy: 'bubblegum', num: '123', reverse: true, unwrap: false },
+      errors: []
+    }
