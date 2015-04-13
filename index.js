@@ -1,13 +1,8 @@
 var _ = require("lodash");
 
-Object.prototype.keysLength = function() {
-    return Object.keys(this).length;
-};
-
 String.prototype.join = function(arr) {
     return arr.join(this);
 };
-
 String.prototype.repeat = function(len) {
     return Array(len).join(this);
 };
@@ -60,15 +55,14 @@ var Arguments = function Arguments() {
             }
             //there is assigment, options
             if (a.indexOf("=") >= 0) {
-                var argumentSplit = a.split("=");
-                var raw = argumentSplit[0], value = argumentSplit[1];
+                var as = a.split("=");
+                var raw = as[0], value = as[1];
                 if (raw.length > 3 && raw.substr(0, 2) == "--") {
-                    name = raw.replace("--", "");
+                    name = raw.substr(2);
                     requested[name] = value;
                 }
-                else {
+                else
                     requested[raw.replace(/^-+/, "")] = value;
-                }
                 return;
             }
             // swtiches
@@ -138,7 +132,7 @@ var Arguments = function Arguments() {
     function validate(name, fun, exp) {
         if (!self.validators.hasOwnProperty(name))
             self.validators[name] = [];
-        self.validators[name].push([fun, exp || "Validation failed"]);
+        self.validators[name].push({ func: fun, exp: exp || "Validation failed" });
     }
 
     function _elongate(abbr) {
@@ -209,11 +203,10 @@ var Arguments = function Arguments() {
         });
 
         // validators
-        _.each(self.validators, function(funs, name) {
-            _.each(funs, function(fun) {
-                var f = fun[0], exp = fun[1];
-                if (!f(results[name]))
-                    errors.push(new Error("[" + name + "] " + exp));
+        _.each(self.validators, function(validators, name) {
+            _.each(validators, function(validator) {
+                if (!validator.func(results[name]))
+                    errors.push(new Error("[" + name + "] " + validator.exp));
             });
         });
 
@@ -248,7 +241,7 @@ var Arguments = function Arguments() {
         var r = "";
         r += "Usage: " + _get_script_args(args).join(" ") + " " + usage_options + mandatory;
         r += "\n\n";
-        if (self.text.required.keysLength() > 0) {
+        if (_.keys(self.text.required).length > 0) {
             r += "Required arguments:\n";
             _.each(self.text.required, function(v, k) {
                 r += " " + k.ljust(len_just).toUpperCase() + " ".repeat(6) + v;
@@ -257,7 +250,7 @@ var Arguments = function Arguments() {
             r += "\n";
         }
 
-        if (self.text.option.keysLength() > 0) {
+        if (_.keys(self.text.option).length > 0) {
             r += "Optional arguments:\n";
             _.each(self.text.option, function(v, k) {
                 var a = "";
@@ -270,7 +263,7 @@ var Arguments = function Arguments() {
             });
         }
 
-        if (self.text["switch"].keysLength() > 0) {
+        if (_.keys(self.text["switch"]).length > 0) {
             r += "\nSwitches:\n";
             _.each(self.text["switch"], function(v, k) {
                 a = "";
