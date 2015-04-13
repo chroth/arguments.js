@@ -1,0 +1,41 @@
+{
+  "name": "arguments.js",
+  "author": "Christofer Roth",
+  "version": "0.0.1",
+  "description": "CLI arguments parser for node",
+  "homepage": "http://github.com/chroth/argumentsjs",
+  "keywords": [
+    "arguments",
+    "cli"
+  ],
+  "dependencies": {
+    "lodash": "^3.6.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.1.0",
+    "should": "^5.1.0"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/chroth/argumentsjs.git"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://github.com/chroth/argumentsjs/LICENSE"
+    }
+  ],
+  "bugs": {
+    "url": "http://github.com/chroth/argumentsjs/issues"
+  },
+  "scripts": {
+    "test": "mocha --reporter spec test/*.test.js"
+  },
+  "engines": {
+    "node": ">= 0.10.0",
+    "npm": ">= 1.4.0"
+  }
+}
