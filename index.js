@@ -49,33 +49,20 @@ var Arguments = function Arguments() {
         var ordinal = [];
         _.each(_get_parameter_args(args), function(a) {
             // required arguments
-            if (a[0] != "-") {
-                ordinal.push(a);
-                return;
-            }
+            if (a[0] != "-")
+                return ordinal.push(a);
+
             //there is assigment, options
             if (a.indexOf("=") >= 0) {
-                var as = a.split("=");
-                var raw = as[0], value = as[1];
-                if (raw.length > 3 && raw.substr(0, 2) == "--") {
-                    name = raw.substr(2);
-                    requested[name] = value;
-                }
-                else
-                    requested[raw.replace(/^-+/, "")] = value;
+                var assignment = a.split("=");
+                var name = assignment[0].replace(/^--?/, "");
+                var value = assignment[1];
+                requested[name] = value;
                 return;
             }
-            // swtiches
-            if (a.length > 2 && a.substr(0, 2) == "--") {
-                name = a.substr(2);
-                requested[name] = true;
-                return;
-            }
-
-            if (a[0] == "-")
-                _.each(a.slice(1), function(x) {
-                    requested[x] = true;
-                });
+            // switches
+            var name = a.replace(/^--?/, "");
+            requested[name] = true;
         });
 
         return { requested: requested, ordinal: ordinal };
@@ -97,7 +84,7 @@ var Arguments = function Arguments() {
         self.abbr[abbr] = name;
     }
 
-    function _switch(name, opts) {
+    function switch_(name, opts) {
         var help = opts.help, abbr = opts.abbr;
         _set_default_value(name, false);
 
@@ -283,7 +270,7 @@ var Arguments = function Arguments() {
         help_usage: help_usage,
         required: required,
         option: option,
-        "switch": _switch,
+        "switch": switch_,
         process: process,
         validate: validate,
         parse: parse,
