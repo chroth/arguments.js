@@ -34,7 +34,7 @@ console.log(f.parse(process.argv));
 
 ```javascript
 {
-  results: { candy: 'bubblegum', num: '25', reverse: false, unwrap: false },
+  results: { candy: 'BUBBLEGUM', num: 25, reverse: false, unwrap: false },
   errors: []
 }
 ```
@@ -43,7 +43,7 @@ console.log(f.parse(process.argv));
 
 ```javascript
 {
-  results: { candy: 'bubblegum', num: '123', reverse: true, unwrap: false },
+  results: { candy: 'BUBBLEGUM', num: 123, reverse: true, unwrap: false },
   errors: []
 }
 ```
