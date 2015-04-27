@@ -26,8 +26,8 @@ describe("Arguments", function() {
 
     // Assertions
     resp.errors.length.should.be.exactly(0);
-    resp.results.candy.should.eql("bubblegum").and.be.a.String;
-    resp.results.num.should.eql("20").and.be.a.String;
+    resp.results.candy.should.eql("BUBBLEGUM").and.be.a.String;
+    resp.results.num.should.eql(20).and.be.a.Number;
     resp.results.reverse.should.be.true;
     resp.results.unwrap.should.be.true;
 
@@ -38,8 +38,8 @@ describe("Arguments", function() {
     resp = f.parse(["node", "/path/to/script", "bubblegum", "-n=11", "-r", "-u"]);
 
     resp.errors.length.should.be.exactly(0);
-    resp.results.candy.should.eql("bubblegum").and.be.a.String;
-    resp.results.num.should.eql("11").and.be.a.String;
+    resp.results.candy.should.eql("BUBBLEGUM").and.be.a.String;
+    resp.results.num.should.eql(11).and.be.a.Number;
     resp.results.reverse.should.be.true;
     resp.results.unwrap.should.be.true;
 
@@ -50,8 +50,8 @@ describe("Arguments", function() {
     resp = f.parse(["node", "/path/to/script", "bubblegum"]);
 
     resp.errors.length.should.be.exactly(0);
-    resp.results.candy.should.eql("bubblegum").and.be.a.String;
-    resp.results.num.should.eql("25").and.be.a.String;
+    resp.results.candy.should.eql("BUBBLEGUM").and.be.a.String;
+    resp.results.num.should.eql(25).and.be.a.Number;
     resp.results.reverse.should.be.false;
     resp.results.unwrap.should.be.false;
 
@@ -65,7 +65,7 @@ describe("Arguments", function() {
     resp.errors[0].toString().should.be.eql("Error: [num] Validation failed");
     resp.errors[1].toString().should.be.eql("Error: Number of required arguments mismatch, missing: candy");
     (resp.results.candy === undefined).should.be.true;
-    resp.results.num.should.eql("9").and.be.a.String;
+    resp.results.num.should.eql(9).and.be.a.Number;
     resp.results.reverse.should.be.false;
     resp.results.unwrap.should.be.false;
 
@@ -85,7 +85,7 @@ describe("Arguments", function() {
 
     resp = f.parse(["node", "/path/to/script", "bubblegum", "--num=20", "--reverse", "--unwrap"]);
     resp.errors.length.should.be.exactly(0);
-    resp.results.candy.should.eql("bubblegum").and.be.a.String;
+    resp.results.candy.should.eql("BUBBLEGUM").and.be.a.String;
 
     done();
   });

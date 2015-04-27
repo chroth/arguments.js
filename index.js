@@ -177,8 +177,8 @@ var Arguments = function Arguments() {
         });
 
         // processor
-        _.each(self.processors, function(name) {
-            _.each(self.processors[name], function(p) {
+        _.each(self.processors, function(processors, name) {
+            _.each(processors, function(p) {
                 if (results[name]) {
                     try {
                         results[name] = p(results[name]);
