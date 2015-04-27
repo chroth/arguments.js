@@ -4,6 +4,11 @@ CLI arguments parser for node.
 
 Ported from the Python module [Arguments](https://github.com/oskarnyqvist/arguments "Arguments python")
 
+## Installation
+
+```bash
+$ npm install argumentsjs -S
+```
 
 ## Usage
 
