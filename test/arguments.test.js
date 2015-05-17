@@ -75,7 +75,15 @@ describe("Arguments", function() {
   it("should show help", function(done) {
     var help = f.help_usage(["node", "/path/to/script", "-h"]);
 
-    help.should.be.eql("Usage: node /path/to/script CANDY\n\nRequired arguments:\n CANDY     Candy name\n\nOptional arguments:\n -n  --num=25 How many pieces?\n\nSwitches:\n -r  --reverse Reverse ordering\n -u  --unwrap unwrapcandy\n")
+    help.should.be.eql(
+      "Usage: node /path/to/script CANDY\n\n" +
+      "Required arguments:\n" +
+      " CANDY      Candy name\n\n" + 
+      "Optional arguments:\n" +
+      " -n  --num=25  How many pieces?\n\n" + 
+      "Switches:\n" +
+      " -r  --reverse  Reverse ordering\n" +
+      " -u  --unwrap  unwrapcandy\n");
 
     done();
   });

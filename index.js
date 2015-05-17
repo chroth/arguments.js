@@ -1,20 +1,5 @@
 var _ = require("lodash");
 
-String.prototype.join = function(arr) {
-    return arr.join(this);
-};
-String.prototype.repeat = function(len) {
-    return Array(len).join(this);
-};
-String.prototype.ljust = function(len) {
-    var padding = len - this.length;
-    return padding > 0 ? " ".repeat(padding) + this: this;
-};
-String.prototype.rjust = function(len) {
-    var padding = len - this.length;
-    return padding > 0 ? this + " ".repeat(padding): this;
-};
-
 var Arguments = function Arguments() {
     var self = this;
 
@@ -202,7 +187,7 @@ var Arguments = function Arguments() {
             var missing = self.order.slice(pa.ordinal.length);
             errors.push(new Error(
                 "Number of required arguments mismatch, missing: " +
-                ",".join(missing))
+                missing.join(","))
                 );
         }
 
@@ -218,7 +203,7 @@ var Arguments = function Arguments() {
         if (options_count > 0)
             usage_options = " [OPTIONS] ";
 
-        var mandatory = " ".join(self.order).toUpperCase();
+        var mandatory = self.order.join(" ").toUpperCase();
 
         var length_name = _.max(_.keys(self.names), function(k) { return k.length; });
         var length_values = _.max(_.map(_.values(self.data), function(v) { return v ? v.length : 0; }));
@@ -231,7 +216,7 @@ var Arguments = function Arguments() {
         if (_.keys(self.text.required).length > 0) {
             r += "Required arguments:\n";
             _.each(self.text.required, function(v, k) {
-                r += " " + k.ljust(len_just).toUpperCase() + " ".repeat(6) + v;
+                r += " " + _.padLeft(k, len_just).toUpperCase() + _.repeat(" ", 6) + v;
                 r += "\n";
             });
             r += "\n";
@@ -243,9 +228,9 @@ var Arguments = function Arguments() {
                 var a = "";
                 if (abbr_reverse.hasOwnProperty(k))
                     a = "-" + abbr_reverse[k];
-                a = " " + a.rjust(2);
+                a = " " + _.padRight(a, 2);
                 nv = "--" + k + "=" + self.data[k];
-                r += a + "  " + nv.ljust(len_just) + " ".repeat(2) + v;
+                r += a + "  " + _.padLeft(nv, len_just) + _.repeat(" ", 2) + v;
                 r += "\n";
             });
         }
@@ -256,9 +241,9 @@ var Arguments = function Arguments() {
                 a = "";
                 if (abbr_reverse.hasOwnProperty(k))
                     a = "-" + abbr_reverse[k];
-                a = " " + a.rjust(2);
+                a = " " + _.padRight(a, 2);
                 nv = "--" + k;
-                r += a + "  " + nv.ljust(len_just) + " ".repeat(2) + v;
+                r += a + "  " + _.padLeft(nv, len_just) + _.repeat(" ", 2) + v;
                 r += "\n";
             });
         }
